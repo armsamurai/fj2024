@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
     CircleCollider2D legs;
+    Animator anim;
 
     [SerializeField] float speed = 5f;
     [SerializeField] float jumpForce = 8f;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         legs = GetComponent<CircleCollider2D>();
+        anim = GetComponent<Animator>();
     }
 
 
@@ -29,6 +31,10 @@ public class PlayerController : MonoBehaviour
     {
         float newX = Input.GetAxis("Horizontal") * speed;
         rb.velocity = new Vector2(newX, rb.velocity.y);
+
+        float velX = Mathf.Abs(rb.velocity.x);
+        if (velX > 0.5f) anim.SetBool("Walk", true);
+        else anim.SetBool("Walk", false);
     }
 
 
