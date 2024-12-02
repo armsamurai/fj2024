@@ -2,8 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum PlayerState
+{
+    IDLE, 
+    WALK, 
+    FALL, 
+    CLIMB,
+    ATTACK,
+    DISABLED,
+    DEAD
+}
+
+
 public class PlayerController : MonoBehaviour
 {
+    public PlayerState state = PlayerState.IDLE;
+
     Rigidbody2D rb;
     CircleCollider2D legs;
     Animator anim;
@@ -24,6 +39,17 @@ public class PlayerController : MonoBehaviour
         Move();
         Jump();
         FlipCharacter();
+
+
+        SetAnim();
+    }
+
+    void SetAnim()
+    {
+        if (state == PlayerState.IDLE) anim.SetInteger("state", 0);
+        else if (state == PlayerState.WALK) anim.SetInteger("state", 1);
+        else if (state == PlayerState.FALL) anim.SetInteger("state", 2);
+        else if (state == PlayerState.CLIMB) anim.SetInteger("state", 3);
     }
 
 
@@ -33,8 +59,8 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(newX, rb.velocity.y);
 
         float velX = Mathf.Abs(rb.velocity.x);
-        if (velX > 0.5f) anim.SetBool("Walk", true);
-        else anim.SetBool("Walk", false);
+        if (velX > 0.5f) state = PlayerState.WALK;
+        else state = PlayerState.IDLE;
     }
 
 
@@ -49,6 +75,10 @@ public class PlayerController : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
+        }
+        else
+        {
+            state = PlayerState.FALL;
         }
     }
 
