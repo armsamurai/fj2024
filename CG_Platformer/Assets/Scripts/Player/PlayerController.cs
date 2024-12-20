@@ -41,13 +41,23 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Move();
-        Jump();
-        Climb();
-        FlipCharacter();
-
-
+        if (CanMove())
+        {
+            Move();
+            Jump();
+            Climb();
+            FlipCharacter();
+        }
         SetAnim();
+    }
+
+    bool CanMove()
+    {
+        if (state == PlayerState.DISABLED) return false;
+        if (state == PlayerState.DEAD) return false;
+        if (state == PlayerState.ATTACK) return false;
+
+        return true;
     }
 
     void SetAnim()
