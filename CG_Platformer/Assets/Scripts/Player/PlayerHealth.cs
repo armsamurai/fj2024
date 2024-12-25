@@ -51,4 +51,14 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Animator>().SetInteger("state", 10);
         GetComponent<Rigidbody2D>().velocity = new Vector2();
     }
+
+    public void Heal(int addHP)
+    {
+        hp += addHP;
+        if (hp >= maxHP)
+        {
+            hp = maxHP;
+        }
+        hpDisplay.Display(hp);
+    }
 }

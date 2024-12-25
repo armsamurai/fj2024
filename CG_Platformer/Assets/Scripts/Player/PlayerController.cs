@@ -140,4 +140,24 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public float GetJumpForce()
+    {
+        return jumpForce;
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
+    public void SetJumpForce(float newJump)
+    {
+        jumpForce = newJump; 
+    }
 }
