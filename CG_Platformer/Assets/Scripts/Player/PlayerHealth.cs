@@ -50,6 +50,9 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(1f);
         GetComponent<Animator>().SetInteger("state", 10);
         GetComponent<Rigidbody2D>().velocity = new Vector2();
+        GetComponent<Rigidbody2D>().gravityScale = 0;
+        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
     }
 
     public void Heal(int addHP)
